@@ -1,23 +1,17 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:custom_pokedex/components/AppBar.dart';
-import 'package:custom_pokedex/main.dart';
 import 'package:flutter/material.dart';
+import 'package:custom_pokedex/components/DarkModeToggle.dart';
 
-class Settings extends StatefulWidget {
-  const Settings({Key? key}) : super(key: key);
+class Settings extends StatelessWidget {
+  final Function(ThemeMode) updateTheme; // Add this line
 
-  @override
-  State<Settings> createState() => _SettingsState();
-}
-
-class _SettingsState extends State<Settings> {
-  bool isDarkModeEnabled = false;
+  Settings({required this.updateTheme}); // Add this line
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
         title: "settings",
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -27,20 +21,15 @@ class _SettingsState extends State<Settings> {
         padding: EdgeInsets.all(16.0),
         children: [
           ListTile(
-            title: Text("Dark Mode"),
-            trailing: Switch(
-              value: isDarkModeEnabled,
-              onChanged: (value) {
-                setState(() {
-                  isDarkModeEnabled = value;
-                  // Pass the updated value to MyApp
-                  MyApp.of(context)?.updateDarkMode(value);
-                });
-              },
+            title: Text(
+              "dark mode"
             ),
+            trailing: DarkModeToggle(updateTheme: updateTheme),
           ),
         ],
       ),
     );
   }
 }
+
+// child: DarkModeToggle(updateTheme: updateTheme), // Pass the updateTheme function here

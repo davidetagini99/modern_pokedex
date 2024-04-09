@@ -9,7 +9,7 @@ class ThemeDataStyle {
     colorScheme: const ColorScheme.light(
       background: Colors.white,
       primary: Colors.red,
-      secondary: Colors.black
+      secondary: Colors.black,
     ),
   );
 
@@ -18,7 +18,7 @@ class ThemeDataStyle {
     brightness: Brightness.dark,
     colorScheme: const ColorScheme.dark(
       background: Colors.black,
-      primary: Colors.green,
+      primary: Colors.red,
       secondary: Colors.white,
     ),
   );

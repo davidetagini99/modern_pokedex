@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors, library_private_types_in_public_api
+// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:custom_pokedex/screens/home.dart';
 import 'package:custom_pokedex/themes/ThemeDataStyle.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,19 +12,32 @@ void main() {
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  static _MyAppState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_MyAppState>();
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  bool isDarkModeEnabled = false;
+  late ThemeMode _themeMode = ThemeMode.light;
 
-  void updateDarkMode(bool value) {
+  @override
+  void initState() {
+    super.initState();
+    _loadThemeMode();
+  }
+
+  void _loadThemeMode() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _themeMode = (prefs.getBool('isDarkModeEnabled') ?? false)
+        ? ThemeMode.dark
+        : ThemeMode.light;
+    setState(() {});
+  }
+
+  void _updateTheme(ThemeMode themeMode) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isDarkModeEnabled', themeMode == ThemeMode.dark);
     setState(() {
-      isDarkModeEnabled = value;
+      _themeMode = themeMode;
     });
   }
 
@@ -31,8 +45,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
-      theme: isDarkModeEnabled ? ThemeDataStyle.dark : ThemeDataStyle.light,
+      home: Home(updateTheme: _updateTheme), // Pass the updateTheme function here
+      themeMode: _themeMode,
+      theme: ThemeDataStyle.light,
+      darkTheme: ThemeDataStyle.dark,
     );
   }
 }

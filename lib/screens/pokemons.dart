@@ -1,6 +1,7 @@
-// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:convert';
+import 'package:custom_pokedex/components/AppBar.dart';
 import 'package:custom_pokedex/screens/pokemons_details.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -38,12 +39,19 @@ class _PokemonListState extends State<PokemonList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: CustomAppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        title: "modern pokedex",
+        actions: [],
+      ),
       body: pokemons.isEmpty
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: pokemons.length,
               itemBuilder: (context, index) {
                 return ListTile(
+                  textColor: Theme.of(context).colorScheme.secondary,
                   title: Text(pokemons[index]),
                   onTap: () {
                     Navigator.push(
