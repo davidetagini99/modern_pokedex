@@ -18,7 +18,7 @@ class ThemeDataStyle {
     brightness: Brightness.dark,
     colorScheme: const ColorScheme.dark(
       background: Colors.black,
-      primary: Colors.red,
+      primary: Colors.green,
       secondary: Colors.white,
     ),
   );
