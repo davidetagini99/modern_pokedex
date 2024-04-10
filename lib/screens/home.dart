@@ -1,6 +1,8 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, prefer_const_constructors
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:convert';
+import 'package:custom_pokedex/classes/DrawerItem.dart';
+import 'package:custom_pokedex/components/Drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:custom_pokedex/components/AppBar.dart';
@@ -40,24 +42,30 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    List<DrawerItem> drawerItems = [
+      DrawerItem(
+        title: "settings",
+        leadingIcon: Icons.settings,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    Settings(updateTheme: widget.updateTheme)),
+          );
+        },
+      ),
+    ];
+
     return Scaffold(
+      drawer: CustomDrawer(
+        drawerItems: drawerItems,
+      ),
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: "modern pokedex",
-        actions: [
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        Settings(updateTheme: widget.updateTheme)),
-              );
-            },
-          ),
-        ],
+        title: "",
+        actions: [],
       ),
       body: generations.isEmpty
           ? Center(child: CircularProgressIndicator())

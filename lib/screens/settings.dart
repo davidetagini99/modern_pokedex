@@ -13,7 +13,7 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "settings",
+        title: "",
         backgroundColor: Theme.of(context).colorScheme.primary,
         actions: [],
       ),

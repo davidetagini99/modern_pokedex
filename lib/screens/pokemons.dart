@@ -42,7 +42,7 @@ class _PokemonListState extends State<PokemonList> {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: "modern pokedex",
+        title: "",
         actions: [],
       ),
       body: pokemons.isEmpty

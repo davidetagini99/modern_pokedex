@@ -10,6 +10,7 @@ class ThemeDataStyle {
       background: Colors.white,
       primary: Colors.red,
       secondary: Colors.black,
+      tertiary: Color.fromARGB(255, 234, 234, 234),
     ),
   );
 
@@ -20,6 +21,7 @@ class ThemeDataStyle {
       background: Colors.black,
       primary: Colors.red,
       secondary: Colors.white,
+      tertiary: Color.fromARGB(255, 132, 132, 132),
     ),
   );
 }
