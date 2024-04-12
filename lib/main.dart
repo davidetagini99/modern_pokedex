@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(updateTheme: _updateTheme), // Pass the updateTheme function here
+      home: Home(updateTheme: _updateTheme),
       themeMode: _themeMode,
       theme: ThemeDataStyle.light,
       darkTheme: ThemeDataStyle.dark,

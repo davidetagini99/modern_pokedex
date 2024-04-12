@@ -1,19 +1,19 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, file_names
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // I've used this package to save the settings, so the states of the objects around the app
 
 class DarkModeToggle extends StatefulWidget {
-  final Function(ThemeMode) updateTheme; // Add this line
+  final Function(ThemeMode) updateTheme;
 
-  DarkModeToggle({required this.updateTheme}); // Add this line
+  DarkModeToggle({required this.updateTheme});
 
   @override
   _DarkModeToggleState createState() => _DarkModeToggleState();
 }
 
 class _DarkModeToggleState extends State<DarkModeToggle> {
-  late bool isDarkModeEnabled = false; // Initialize with a default value
+  late bool isDarkModeEnabled = false;
 
   @override
   void initState() {
@@ -41,8 +41,7 @@ class _DarkModeToggleState extends State<DarkModeToggle> {
       onChanged: (value) {
         setState(() {
           isDarkModeEnabled = value;
-          _saveDarkModeState(value); // Save the switch state to SharedPreferences
-          // Update the theme based on the toggle value
+          _saveDarkModeState(value);
           ThemeMode themeMode = value ? ThemeMode.dark : ThemeMode.light;
           widget.updateTheme(themeMode);
         });

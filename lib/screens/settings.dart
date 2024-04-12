@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:custom_pokedex/components/DarkModeToggle.dart';
 
 class Settings extends StatelessWidget {
-  final Function(ThemeMode) updateTheme; // Add this line
+  final Function(ThemeMode) updateTheme;
 
-  Settings({required this.updateTheme}); // Add this line
+  Settings({required this.updateTheme});
 
   @override
   Widget build(BuildContext context) {
@@ -33,5 +33,3 @@ class Settings extends StatelessWidget {
     );
   }
 }
-
-// child: DarkModeToggle(updateTheme: updateTheme), // Pass the updateTheme function here

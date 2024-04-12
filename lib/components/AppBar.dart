@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  final List<Widget> actions; // List of widgets for actions
+  final List<Widget> actions;
   final Color backgroundColor;
   final double elevation;
   final Color shadowColor;
@@ -16,7 +16,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(title),
-      actions: actions, // Set the actions here
+      actions: actions,
       backgroundColor: backgroundColor,
       elevation: elevation,
       shadowColor: shadowColor,

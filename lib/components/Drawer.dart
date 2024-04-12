@@ -14,7 +14,7 @@ class CustomDrawer extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       child: Column(
         children: <Widget>[
-          Container( // Wrap DrawerHeader with Container
+          Container(
           width: double.infinity,
             color: Theme.of(context).colorScheme.primary,
             child: DrawerHeader(
@@ -39,7 +39,7 @@ class CustomDrawer extends StatelessWidget {
               itemBuilder: (context, index) {
                 final item = drawerItems[index];
                 return ListTile(
-                  leading: Icon(item.leadingIcon), // Show leading icon
+                  leading: Icon(item.leadingIcon),
                   title: Text(
                     item.title,
                     style: TextStyle(

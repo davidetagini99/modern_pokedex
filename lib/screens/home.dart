@@ -92,6 +92,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-
-// MaterialPageRoute(builder: (context) => Settings(updateTheme: updateTheme)), // Pass the updateTheme function here

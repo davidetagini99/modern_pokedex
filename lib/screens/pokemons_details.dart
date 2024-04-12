@@ -1,7 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:convert';
-import 'package:custom_pokedex/components/AppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -39,112 +38,91 @@ class _PokemonDetailsState extends State<PokemonDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "",
-        backgroundColor: Theme.of(context).colorScheme.background,
-        actions: [],
-        elevation: 0,
-        shadowColor: Theme.of(context).colorScheme.secondary,
-      ),
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 40.0),
-        child: Container(
-          color: Colors.blue,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 200,
-                color: Colors.green,
-                padding: EdgeInsets.all(12.0),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.pokemonName,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary,
-                            fontSize: 27,
-                            fontWeight: FontWeight.bold,
-                          ),
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 120,
+              color: Theme.of(context).colorScheme.primary,
+              padding: EdgeInsets.all(12.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 345,
+                  color: Theme.of(context).colorScheme.primary,
+                  padding: EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.pokemonName,
+                        style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Text(
-                          "inserire id pokemon",
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.secondary,
-                            fontSize: 27,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Positioned(
-                      child: Container(
-                        // This is your indigo container
-                        alignment: Alignment.center,
+                      ),
+                      Container(
                         width: 200,
                         height: 200,
-                        color: Colors.indigo,
-                        child: Column(
-                          mainAxisAlignment:
-                              MainAxisAlignment.start, // Center the contents
+                        color: Colors.transparent,
+                        padding: EdgeInsets.all(7.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            imageUrl != null
-                                ? Image.network(
-                                    imageUrl!,
-                                  )
-                                : CircularProgressIndicator(),
+                            Text(
+                              "indn",
+                            ),
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  top: 45,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 500,
+                    color: Colors.transparent,
+                    child: Column(
+                      children: [
+                        imageUrl != null
+                        ? Image.network(
+                          imageUrl!,
+                          width: 320,
+                          height: 300,
+                          fit: BoxFit.cover,
+                        )
+                        : CircularProgressIndicator(), // circular progress indicator injects when the data system can't find the sprite of the selected pokemon
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
   }
 }
-
-
-/*
-Text(
-                widget.pokemonName,
-              ),
-              imageUrl != null
-              ? Image.network(
-                imageUrl!,
-              ) : CircularProgressIndicator(),
-*/
-
-/*
-child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.pokemonName,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 27,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Column(
-                children: [
-                  Container(
-                    width: 200,
-                    height: 200,
-                    color: Colors.orange,
-                  ),
-                ],
-              ),
-            ],
-          ),
-*/
