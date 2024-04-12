@@ -14,8 +14,10 @@ class Settings extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: "",
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.background,
         actions: [],
+        elevation: 0,
+        shadowColor: Theme.of(context).colorScheme.secondary,
       ),
       body: ListView(
         padding: EdgeInsets.all(16.0),

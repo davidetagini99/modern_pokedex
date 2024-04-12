@@ -63,9 +63,11 @@ class _HomeState extends State<Home> {
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: "",
         actions: [],
+        elevation: 0,
+        shadowColor: Theme.of(context).colorScheme.secondary,
       ),
       body: generations.isEmpty
           ? Center(child: CircularProgressIndicator())

@@ -41,9 +41,11 @@ class _PokemonListState extends State<PokemonList> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: CustomAppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: "",
         actions: [],
+        elevation: 0,
+        shadowColor: Theme.of(context).colorScheme.secondary,
       ),
       body: pokemons.isEmpty
           ? Center(child: CircularProgressIndicator())

@@ -6,8 +6,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget> actions; // List of widgets for actions
   final Color backgroundColor;
+  final double elevation;
+  final Color shadowColor;
 
-  const CustomAppBar({Key? key, required this.title, required this.actions, required this.backgroundColor})
+  const CustomAppBar({Key? key, required this.title, required this.actions, required this.backgroundColor, required this.elevation, required this.shadowColor})
       : super(key: key);
 
   @override
@@ -16,6 +18,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title),
       actions: actions, // Set the actions here
       backgroundColor: backgroundColor,
+      elevation: elevation,
+      shadowColor: shadowColor,
     );
   }
 
