@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:custom_pokedex/classes/DrawerItem.dart';
@@ -8,29 +8,42 @@ class CustomDrawer extends StatelessWidget {
 
   const CustomDrawer({Key? key, required this.drawerItems}) : super(key: key);
 
+  String capitalize(String s) {
+    // create only one class to manage this method
+    if (s.isEmpty) {
+      return s;
+    } else {
+      return s[0].toUpperCase() + s.substring(1);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: Theme.of(context).colorScheme.tertiary,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+        Radius.zero,
+      )),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           Container(
-          width: double.infinity,
+            width: MediaQuery.of(context).size.width,
+            height: 200,
             color: Theme.of(context).colorScheme.primary,
-            child: DrawerHeader(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "modern pokedex",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
+            padding: EdgeInsets.all(40.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  capitalize("modern pokedex"),
+                  style: TextStyle(
+                    fontSize: 18.0,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Expanded(

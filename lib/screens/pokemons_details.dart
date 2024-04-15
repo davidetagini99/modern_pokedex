@@ -23,25 +23,19 @@ class _PokemonDetailsState extends State<PokemonDetails> {
   }
 
   Future<void> fetchPokemonImage() async {
-    final response = await http.get(Uri.parse(
-        'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json')); // find a link with pokemon sprites for all generations
+    final pokemonName = widget.pokemonName.toLowerCase();
+    final response = await http
+        .get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$pokemonName'));
+
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);
-      final List<dynamic> pokemonList = data['pokemon'];
-      final pokemon = pokemonList.firstWhere(
-          (element) =>
-              element['name'].toString().toLowerCase() ==
-              widget.pokemonName.toLowerCase(),
-          orElse: () => null);
-      if (pokemon != null) {
-        setState(() {
-          imageUrl = pokemon['img'];
-        });
-      } else {
-        throw Exception('Pokemon not found');
-      }
-    } else {
-      throw Exception('Failed to load pokemon details');
+      final String newImageUrl = data['sprites']['front_default'];
+
+      setState(() {
+        imageUrl = newImageUrl;
+      });
+        } else {
+      throw Exception('Failed to load Pokémon details');
     }
   }
 
@@ -73,7 +67,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 345,
+                  height: 380,
                   color: Theme.of(context).colorScheme.tertiary,
                   padding: EdgeInsets.all(16.0),
                   child: Row(
@@ -111,16 +105,24 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                   children: [
                     Container(
                       width: 300,
-                      height: 300,
-                      color: Colors.blue,
+                      height: 500,
+                      color: Colors.transparent,
                       padding: EdgeInsets.only(
-                        top: 160.0,
+                        top: 40.0,
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           // recall image here
+                          imageUrl != null
+                              ? Image.network(
+                                  imageUrl!,
+                                  width: 220,
+                                  height: 210,
+                                  fit: BoxFit.fill,
+                                )
+                              : CircularProgressIndicator(),
                         ],
                       ),
                     ),

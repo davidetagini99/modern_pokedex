@@ -3,11 +3,11 @@
 import 'dart:convert';
 import 'package:custom_pokedex/classes/DrawerItem.dart';
 import 'package:custom_pokedex/components/Drawer.dart';
+import 'package:custom_pokedex/screens/generation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:custom_pokedex/components/AppBar.dart';
 import 'package:custom_pokedex/screens/settings.dart';
-import 'package:custom_pokedex/screens/pokemons.dart';
 
 class Home extends StatefulWidget {
   final Function(ThemeMode) updateTheme;
@@ -34,6 +34,15 @@ class _HomeState extends State<Home> {
     }
   }
 
+  String capitalize(String s) {
+    // create only one class to manage this method
+    if (s.isEmpty) {
+      return s;
+    } else {
+      return s[0].toUpperCase() + s.substring(1);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -44,7 +53,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     List<DrawerItem> drawerItems = [
       DrawerItem(
-        title: "settings",
+        title: capitalize("settings"),
         leadingIcon: Icons.settings,
         onTap: () {
           Navigator.push(
@@ -82,8 +91,10 @@ class _HomeState extends State<Home> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              PokemonList(generation: generations[index])),
+                        builder: (context) => GenerationScreen(
+                          generationName: generations[index],
+                        ),
+                      ),
                     );
                   },
                 );

@@ -22,11 +22,17 @@ class Settings extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(16.0),
         children: [
-          ListTile(
-            title: Text(
-              "dark mode"
-            ),
-            trailing: DarkModeToggle(updateTheme: updateTheme),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "dark mode",
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              DarkModeToggle(updateTheme: updateTheme,),
+            ],
           ),
         ],
       ),
