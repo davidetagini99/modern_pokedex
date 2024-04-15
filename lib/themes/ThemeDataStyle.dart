@@ -10,7 +10,7 @@ class ThemeDataStyle {
       background: Colors.white,
       primary: Colors.red,
       secondary: Colors.black,
-      tertiary: Color.fromARGB(255, 234, 234, 234),
+      tertiary: Color.fromARGB(255, 201, 201, 201),
     ),
   );
 

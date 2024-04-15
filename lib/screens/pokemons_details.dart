@@ -24,12 +24,22 @@ class _PokemonDetailsState extends State<PokemonDetails> {
 
   Future<void> fetchPokemonImage() async {
     final response = await http.get(Uri.parse(
-        'https://pokeapi.co/api/v2/pokemon/${widget.pokemonName.toLowerCase()}'));
+        'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json')); // find a link with pokemon sprites for all generations
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);
-      setState(() {
-        imageUrl = data['sprites']['front_default'];
-      });
+      final List<dynamic> pokemonList = data['pokemon'];
+      final pokemon = pokemonList.firstWhere(
+          (element) =>
+              element['name'].toString().toLowerCase() ==
+              widget.pokemonName.toLowerCase(),
+          orElse: () => null);
+      if (pokemon != null) {
+        setState(() {
+          imageUrl = pokemon['img'];
+        });
+      } else {
+        throw Exception('Pokemon not found');
+      }
     } else {
       throw Exception('Failed to load pokemon details');
     }
@@ -45,7 +55,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: 120,
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.tertiary,
               padding: EdgeInsets.all(12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,7 +74,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: 345,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.tertiary,
                   padding: EdgeInsets.all(16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,28 +105,26 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                     ],
                   ),
                 ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  top: 45,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 500,
-                    color: Colors.transparent,
-                    child: Column(
-                      children: [
-                        imageUrl != null
-                        ? Image.network(
-                          imageUrl!,
-                          width: 320,
-                          height: 300,
-                          fit: BoxFit.cover,
-                        )
-                        : CircularProgressIndicator(), // circular progress indicator injects when the data system can't find the sprite of the selected pokemon
-                      ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 300,
+                      height: 300,
+                      color: Colors.blue,
+                      padding: EdgeInsets.only(
+                        top: 160.0,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // recall image here
+                        ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -126,3 +134,20 @@ class _PokemonDetailsState extends State<PokemonDetails> {
     );
   }
 }
+
+/*child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 500,
+                    color: Colors.transparent,
+                    child: Column(
+                      children: [
+                        imageUrl != null
+                            ? Image.network(
+                                imageUrl!,
+                                width: 300,
+                                height: 300,
+                              )
+                            : CircularProgressIndicator(), // circular progress indicator injects when the data system can't find the sprite of the selected pokemon
+                      ],
+                    ),
+                  ),*/
