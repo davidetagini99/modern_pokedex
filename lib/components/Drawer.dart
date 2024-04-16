@@ -1,21 +1,15 @@
-// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, prefer_final_fields
 
+import 'package:custom_pokedex/classes/UppercaseChars.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_pokedex/classes/DrawerItem.dart';
 
 class CustomDrawer extends StatelessWidget {
   final List<DrawerItem> drawerItems;
 
-  const CustomDrawer({Key? key, required this.drawerItems}) : super(key: key);
+  CustomDrawer({Key? key, required this.drawerItems}) : super(key: key);
 
-  String capitalize(String s) {
-    // create only one class to manage this method
-    if (s.isEmpty) {
-      return s;
-    } else {
-      return s[0].toUpperCase() + s.substring(1);
-    }
-  }
+  late UppercaseChars _uppercaseChars = UppercaseChars();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +32,7 @@ class CustomDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  capitalize("modern pokedex"),
+                  _uppercaseChars.capitalize("modern pokedex"),
                   style: TextStyle(
                     fontSize: 18.0,
                   ),

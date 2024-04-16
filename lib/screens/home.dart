@@ -1,7 +1,8 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors_in_immutables, library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields
 
 import 'dart:convert';
 import 'package:custom_pokedex/classes/DrawerItem.dart';
+import 'package:custom_pokedex/classes/UppercaseChars.dart';
 import 'package:custom_pokedex/components/Drawer.dart';
 import 'package:custom_pokedex/screens/generation_screen.dart';
 import 'package:flutter/material.dart';
@@ -34,14 +35,7 @@ class _HomeState extends State<Home> {
     }
   }
 
-  String capitalize(String s) {
-    // create only one class to manage this method
-    if (s.isEmpty) {
-      return s;
-    } else {
-      return s[0].toUpperCase() + s.substring(1);
-    }
-  }
+  late UppercaseChars _uppercaseChars = UppercaseChars();
 
   @override
   void initState() {
@@ -53,7 +47,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     List<DrawerItem> drawerItems = [
       DrawerItem(
-        title: capitalize("settings"),
+        title: _uppercaseChars.capitalize("settings"),
         leadingIcon: Icons.settings,
         onTap: () {
           Navigator.push(

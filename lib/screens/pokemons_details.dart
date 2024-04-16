@@ -15,12 +15,7 @@ class PokemonDetails extends StatefulWidget {
 
 class _PokemonDetailsState extends State<PokemonDetails> {
   String? imageUrl;
-
-  @override
-  void initState() {
-    super.initState();
-    fetchPokemonImage();
-  }
+  int? pokemonId;
 
   Future<void> fetchPokemonImage() async {
     final pokemonName = widget.pokemonName.toLowerCase();
@@ -34,9 +29,34 @@ class _PokemonDetailsState extends State<PokemonDetails> {
       setState(() {
         imageUrl = newImageUrl;
       });
-        } else {
+    } else {
       throw Exception('Failed to load Pokémon details');
     }
+  }
+
+  Future<void> fetchPokemonId(String idPokemon) async {
+    final pokemonNumber = idPokemon.toLowerCase();
+
+    final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$pokemonNumber'));
+
+    if(response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final int newPokemonId = data['id'];
+
+      setState(() {
+        pokemonId = newPokemonId;
+      });
+    }
+    else {
+      throw Exception("failed to load pokemon number");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchPokemonImage();
+    fetchPokemonId(widget.pokemonName);
   }
 
   @override
@@ -91,7 +111,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              "indn",
+                              pokemonId != null ? pokemonId.toString() : '',
                             ),
                           ],
                         ),
@@ -114,7 +134,6 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          // recall image here
                           imageUrl != null
                               ? Image.network(
                                   imageUrl!,
@@ -136,20 +155,3 @@ class _PokemonDetailsState extends State<PokemonDetails> {
     );
   }
 }
-
-/*child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 500,
-                    color: Colors.transparent,
-                    child: Column(
-                      children: [
-                        imageUrl != null
-                            ? Image.network(
-                                imageUrl!,
-                                width: 300,
-                                height: 300,
-                              )
-                            : CircularProgressIndicator(), // circular progress indicator injects when the data system can't find the sprite of the selected pokemon
-                      ],
-                    ),
-                  ),*/
